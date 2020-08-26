@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link href="css/destyle++.css" rel="stylesheet" />
+		<link href="css/main.css" rel="stylesheet" />
+		<script src="js/main.js" async></script>
+		<title>FlipCards (Helloween Edition) | A.I.Dev</title>
+	</head>
+
+	<body>
+		<div id="gameContainer">
+			<div class="game-info-container">
+				<div class="game-info">
+					Time <span id="timeRemaining">0</span>
+				</div>
+				<div class="game-info">Flips <span id="flips">0</span></div>
+			</div>
+			<ul id="cardsGrid"></ul>
+		</div>
+
+		<div id="startGameText" class="overlay-text visible">
+			Click to Start
+			<p class="highest-score">
+				<span>Highest Score:</span>
+				<span class="highest-score-value"></span>
+			</p>
+		</div>
+
+		<div id="gameOverText" class="overlay-text">
+			GAME OVER
+			<p class="highest-score">
+				<span>Highest Score:</span>
+				<span class="highest-score-value"></span>
+			</p>
+			<span class="overlay-text-small">Click to Restart</span>
+		</div>
+
+		<div id="victoryText" class="overlay-text">
+			VICTORY
+			<p class="current-score">
+				<span>Current Score:</span>
+				<span class="current-score-value"></span>
+			</p>
+			<p class="highest-score">
+				<span>Highest Score:</span>
+				<span class="highest-score-value"></span>
+			</p>
+			<span class="overlay-text-small">Click to Restart</span>
+		</div>
+	</body>
+</html>

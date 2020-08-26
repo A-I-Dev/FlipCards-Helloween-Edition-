@@ -1,0 +1,268 @@
+@font-face {
+	font-family: 'Creepy';
+	src: url('../fonts/Creepy.woff') format('woff'),
+		url('../fonts/Creepy.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Lunacy';
+	src: url('../fonts/Lunacy.woff') format('woff'),
+		url('../fonts/Lunacy.woff2') format('woff2');
+}
+
+html {
+	cursor: url('../cursors/Ghost.cur'), auto;
+}
+
+body {
+	min-height: 100vh;
+	margin: 0;
+	background: radial-gradient(#9d5900, #3d2200);
+}
+
+.game-info-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.game-info {
+	font-family: Lunacy, serif;
+	color: #ffbb89;
+	font-size: 32px;
+}
+
+#gameContainer {
+	margin: 0 auto;
+	padding: 25px;
+	max-width: 640px;
+}
+
+#cardsGrid {
+	margin: 25px 0 0;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 10px;
+	justify-content: center;
+	perspective: 500px;
+}
+
+.card {
+	position: relative;
+	padding-top: 140%;
+}
+
+.click-space {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1;
+}
+.visible .click-space {
+	display: none !important;
+}
+
+.card-face {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	backface-visibility: hidden;
+	border-radius: 12px;
+	border-width: 1px;
+	border-style: solid;
+	transition: transform 500ms ease-in-out;
+}
+
+.card.visible .card-back {
+	transform: rotateY(-180deg);
+}
+
+.card.visible .card-front {
+	transform: rotateY(0);
+}
+
+.card.matched .card-value {
+	animation: dance 1s linear infinite 500ms;
+}
+
+.overlay-text {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	justify-content: center;
+	align-items: center;
+	z-index: 100;
+	color: #ff6d00;
+	font-family: Creepy, serif;
+	text-align: center;
+}
+
+.overlay-text-small {
+	font-size: 0.3em;
+	display: block;
+	margin-top: 24px;
+}
+
+.overlay-text.visible {
+	display: flex;
+	flex-direction: column;
+	animation: overlay-grow 500ms forwards;
+}
+
+.overlay-text.hide {
+	display: flex;
+	flex-direction: column;
+	animation: overlay-shrink 500ms forwards;
+}
+
+.current-score,
+.highest-score {
+	font-size: 24px;
+	display: flex;
+	align-items: center;
+	margin: 24px 0 0;
+}
+.current-score-value,
+.highest-score-value {
+	color: #fff;
+	font-family: 'Lunacy';
+	margin-left: 10px;
+	margin-top: 5px;
+	font-size: 28px;
+}
+
+@keyframes overlay-grow {
+	from {
+		background-color: rgba(0, 0, 0, 0);
+		font-size: 0;
+	}
+	to {
+		background-color: rgba(0, 0, 0, 0.8);
+		font-size: 48px;
+	}
+}
+
+@keyframes overlay-shrink {
+	from {
+		background-color: rgba(0, 0, 0, 0.8);
+		font-size: 48px;
+		opacity: 1;
+	}
+	to {
+		background-color: rgba(0, 0, 0, 0);
+		font-size: 0;
+		opacity: 0;
+	}
+}
+
+@keyframes dance {
+	0%,
+	100% {
+		transform: rotate(0);
+	}
+	25% {
+		transform: rotate(-30deg);
+	}
+	75% {
+		transform: rotate(30deg);
+	}
+}
+
+.card-back {
+	background-color: black;
+	border-color: #ff6d00;
+}
+
+.card-front {
+	background-color: #ffbb89;
+	border-color: #333;
+	transform: rotateY(180deg);
+}
+
+.card-value {
+	max-width: 70%;
+	transition: transform 100ms ease-in-out;
+	transform: scale(0.9);
+}
+
+.cob-web {
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	transition: width 100ms ease-in-out, height 100ms ease-in-out;
+}
+
+.cob-web-top-left {
+	transform: rotate(270deg);
+	top: 0;
+	left: 0;
+}
+
+.cob-web-top-right {
+	top: 0;
+	right: 0;
+}
+
+.cob-web-bottom-left {
+	transform: rotate(180deg);
+	bottom: 0;
+	left: 0;
+}
+
+.cob-web-bottom-right {
+	transform: rotate(90deg);
+	bottom: 0;
+	right: 0;
+}
+
+.spider {
+	align-self: flex-start;
+	transform: translateY(-3px);
+	max-width: 70%;
+	transition: transform 100ms ease-in-out;
+}
+
+@media screen and (min-width: 480px) {
+	.game-info {
+		font-size: 48px;
+	}
+	.cob-web {
+		width: 42px;
+		height: 42px;
+	}
+}
+
+@media screen and (min-width: 720px) {
+	.game-info {
+		font-size: 64px;
+	}
+	.cob-web {
+		width: 57px;
+		height: 57px;
+	}
+}
+
+@media screen and (min-width: 992px) {
+	.card:hover {
+		cursor: url('../cursors/GhostHover.cur'), auto;
+	}
+	.card-front:hover .card-value {
+		transform: scale(1);
+	}
+	.card-face:hover .cob-web {
+		width: 36px;
+		height: 36px;
+	}
+	.card-back:hover .spider {
+		transform: translateY(0);
+	}
+}
