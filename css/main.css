@@ -106,12 +106,6 @@ body {
 	text-align: center;
 }
 
-.overlay-text-small {
-	font-size: 0.3em;
-	display: block;
-	margin-top: 24px;
-}
-
 .overlay-text.visible {
 	display: flex;
 	flex-direction: column;
@@ -122,6 +116,12 @@ body {
 	display: flex;
 	flex-direction: column;
 	animation: overlay-shrink 500ms forwards;
+}
+
+.overlay-text-small {
+	font-size: 0.3em;
+	display: block;
+	margin-top: 24px;
 }
 
 .current-score,
@@ -138,43 +138,6 @@ body {
 	margin-left: 10px;
 	margin-top: 5px;
 	font-size: 28px;
-}
-
-@keyframes overlay-grow {
-	from {
-		background-color: rgba(0, 0, 0, 0);
-		font-size: 0;
-	}
-	to {
-		background-color: rgba(0, 0, 0, 0.8);
-		font-size: 48px;
-	}
-}
-
-@keyframes overlay-shrink {
-	from {
-		background-color: rgba(0, 0, 0, 0.8);
-		font-size: 48px;
-		opacity: 1;
-	}
-	to {
-		background-color: rgba(0, 0, 0, 0);
-		font-size: 0;
-		opacity: 0;
-	}
-}
-
-@keyframes dance {
-	0%,
-	100% {
-		transform: rotate(0);
-	}
-	25% {
-		transform: rotate(-30deg);
-	}
-	75% {
-		transform: rotate(30deg);
-	}
 }
 
 .card-back {
@@ -249,6 +212,27 @@ body {
 		width: 57px;
 		height: 57px;
 	}
+
+	.overlay-text.visible {
+		animation: overlay-grow-big 500ms forwards;
+	}
+
+	.overlay-text.hide {
+		animation: overlay-shrink-big 500ms forwards;
+	}
+
+	.overlay-text-small {
+		margin-top: 42px;
+	}
+
+	.current-score,
+	.highest-score {
+		font-size: 42px;
+	}
+	.current-score-value,
+	.highest-score-value {
+		font-size: 50px;
+	}
 }
 
 @media screen and (min-width: 992px) {
@@ -264,5 +248,66 @@ body {
 	}
 	.card-back:hover .spider {
 		transform: translateY(0);
+	}
+}
+
+@keyframes overlay-grow {
+	from {
+		background-color: rgba(0, 0, 0, 0);
+		font-size: 0;
+	}
+	to {
+		background-color: rgba(0, 0, 0, 0.8);
+		font-size: 48px;
+	}
+}
+
+@keyframes overlay-grow-big {
+	from {
+		background-color: rgba(0, 0, 0, 0);
+		font-size: 0;
+	}
+	to {
+		background-color: rgba(0, 0, 0, 0.8);
+		font-size: 102px;
+	}
+}
+
+@keyframes overlay-shrink {
+	from {
+		background-color: rgba(0, 0, 0, 0.8);
+		font-size: 48px;
+		opacity: 1;
+	}
+	to {
+		background-color: rgba(0, 0, 0, 0);
+		font-size: 0;
+		opacity: 0;
+	}
+}
+
+@keyframes overlay-shrink-big {
+	from {
+		background-color: rgba(0, 0, 0, 0.8);
+		font-size: 102px;
+		opacity: 1;
+	}
+	to {
+		background-color: rgba(0, 0, 0, 0);
+		font-size: 0;
+		opacity: 0;
+	}
+}
+
+@keyframes dance {
+	0%,
+	100% {
+		transform: rotate(0);
+	}
+	25% {
+		transform: rotate(-30deg);
+	}
+	75% {
+		transform: rotate(30deg);
 	}
 }
