@@ -48,14 +48,8 @@ class Game {
 		this.pairCardsArr = [];
 		this.turnedCardsArr = [];
 		this.numberOfCards = this.cardsArray.length * 2;
-		this.highestScore = () => {
-			if (isNaN(parseInt(localStorage.getItem('highestScore')))) return 0;
-			return localStorage.getItem('highestScore');
-		};
-		this.currentScore = () => {
-			if (isNaN(parseInt(localStorage.getItem('currentScore')))) return 0;
-			return localStorage.getItem('currentScore');
-		};
+		this.highestScore = localStorage.getItem('highestScore');
+		this.currentScore = localStorage.getItem('currentScore');
 	}
 
 	calcScore(time, flips) {
@@ -176,10 +170,7 @@ class UI {
 
 	flipCard(card) {
 		const clickedCard = card.target;
-		if (
-			clickedCard.classList.contains('click-space') &&
-			!card.path[2].classList.contains('matched')
-		) {
+		if (clickedCard.classList.contains('click-space')) {
 			this.game.pairCardsArr.push(card.path[2]);
 			this.audio.flip();
 			this.game.flipsCount++;
@@ -226,7 +217,7 @@ class UI {
 		const timeLeft = this.timerValueElement.textContent;
 		const flipsMade = this.flipsCountElement.textContent;
 		const currentScore = this.game.calcScore(timeLeft, flipsMade);
-		const highestScore = this.game.highestScore();
+		const highestScore = this.game.highestScore;
 		this.stopTimer = true;
 		this.audio.victory();
 		localStorage.setItem('currentScore', currentScore.toString());
@@ -254,11 +245,11 @@ class UI {
 		});
 	}
 
-	overlayAnimation(el) {
-		el.target.classList.add('hide');
+	overlayAnimation() {
+		this.overlayStart.classList.add('hide');
 		setTimeout(() => {
-			el.target.classList.remove('visible');
-			el.target.classList.remove('hide');
+			this.overlayStart.classList.remove('visible');
+			this.overlayStart.classList.remove('hide');
 		}, 500);
 	}
 }
@@ -268,11 +259,11 @@ function ready() {
 	const ui = new UI();
 
 	ui.highestScoreValues.forEach((value) => {
-		value.textContent = game.highestScore();
+		value.textContent = game.highestScore;
 	});
 	ui.populateCardsGrid(game.cardsArray);
-	ui.overlayStart.addEventListener('click', (e) => {
-		ui.overlayAnimation(e);
+	ui.overlayStart.addEventListener('click', () => {
+		ui.overlayAnimation();
 		ui.startGame();
 	});
 	ui.cardsGrid.addEventListener('click', (e) => {
@@ -280,8 +271,19 @@ function ready() {
 	});
 }
 
-if (document.readyState === 'loading') {
-	document.addEventListener('DOMContentLoaded', ready());
-} else {
+function afterDOMLoaded() {
+	if (localStorage.getItem('currentScore') === null) {
+		localStorage.setItem('currentScore', '0');
+	}
+	if (localStorage.getItem('highestScore') === null) {
+		localStorage.setItem('highestScore', '0');
+	}
+
 	ready();
+}
+
+if (document.readyState === 'loading') {
+	document.addEventListener('DOMContentLoaded', afterDOMLoaded);
+} else {
+	afterDOMLoaded();
 }
